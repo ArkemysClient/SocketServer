@@ -23,6 +23,11 @@ public class SocketServer {
                 switch (method) {
                     case "start":
                         String[] userProperties = payload.toString().split(":");
+                        if (isClientInListByUsername(userProperties[0]) == true) {
+                            System.out.println(userProperties[0] + " already on list, removing.");
+                            getClientByUsername(userProperties[0]).remove();
+                            count--;
+                        }
                         users.add(new User(userProperties[0], Boolean.parseBoolean(userProperties[1])));
                         count++;
                         System.out.println(users.size());
@@ -56,6 +61,7 @@ public class SocketServer {
                 for (User client : users) {
                     if(client.getTimeSinceLastKeepalive() >= 50000) {
                         client.remove();
+                        count--;
                     }
                 }
             }

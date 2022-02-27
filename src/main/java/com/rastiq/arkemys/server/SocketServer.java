@@ -17,7 +17,7 @@ public class SocketServer {
     public static int count = -1;
 
     public static void main(String[] args) throws FileNotFoundException {
-        Server server = new Server(80, new IDelegate() {
+        Server server = new Server(1337, new IDelegate() {
             @Override
             public @Nullable Object handleRequest(@Nullable String method, @Nullable Object payload) {
                 switch (method) {
